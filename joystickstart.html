@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+<title>CodePen - Gamepad Test</title>
+</head>
+<body translate="no">
+<h1>Gamepad test</h1>
+<div id="output">log</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script id="rendered-js">
+      function updateStatus() {
+    window.requestAnimationFrame(updateStatus);
+  		data = '';
+  		//console.log(navigator.getGamepads());
+      for (var padindex = 0; padindex < 4; ++padindex) {
+          var pad = navigator.getGamepads()[padindex];
+        	if (pad) {
+          	data += '<pre>Pad ' + pad.index + ": " + pad.id + ', mapping:'+pad.mapping+'<br/>';
+          	for (var i = 0; i < pad.buttons.length; ++i)
+            	  data += "button" + i + ": " + (pad.buttons[i].pressed?'PRESSED':'-') + "<br/>";
+          	for (var i = 0; i < pad.axes.length; ++i)
+            	  data += "axis" + i + ": " + pad.axes[i] + "<br/>";
+          } else {
+      			data += 'Pad #'+padindex+' not active.<br/>';            
+          }
+      }      
+   $('#output').html(data);
+}
+console.log(navigator.getGamepads());
+window.requestAnimationFrame(updateStatus);
+    </script>
+</body>
+</html>
